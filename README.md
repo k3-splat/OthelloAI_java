@@ -1,18 +1,21 @@
-## Getting Started
+# Othello AI Java Project
+このプロジェクトは、ソケット通信を通じてサーバーと対戦するオセロ（リバーシ）のAIプログラム群です。ランダムな着手から、評価テーブルを用いた先読みを行うアルゴリズムまで、複数のAIクライアントが含まれています。
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## プロジェクト構成
+- src/: Javaのソースコードが格納されています。
+- bin/: コンパイル済みのクラスファイルが出力されます。
+- lib/: 依存ライブラリ（JARファイル）を配置するフォルダです。
+- .vscode/: Visual Studio Code での開発用設定が含まれています。
 
-## Folder Structure
+## 実装されているAIの種類
+1. OthelloAIClient_Random:有効な着手の中からランダムに手を選択する最もシンプルなAIです。
+2. OthelloAI_1forward:現在の盤面に対して「評価テーブル」を適用し、最も評価の高い位置を選択する1手読みのAIです。
+3. OthelloAI_3forward:相手が「評価テーブル」の最善手を取ると仮定し，3手読みを行うAIです。
 
-The workspace contains two folders by default, where:
+## 評価アルゴリズム
+OthelloAI_1forward および OthelloAI_3forward では、以下の評価テーブルを使用して盤面の優劣を判断しています。
+- 隅（Corner）: 高い評価（+30）を与え、優先的に確保します。
+- 隅の隣（X打ち/C打ち）: 相手に隅を取られるリスクを避けるため、低い評価（-12, -15）が設定されています。
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## オンライン対戦
+接続先となるオセロサーバーのホスト名とポート番号を指定することで、対戦が可能です。
